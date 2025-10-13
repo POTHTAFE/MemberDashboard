@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TAFE Member Dashboard</title>
+  <link rel="icon" type="image/png" href="TAFEFavicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      display: flex;
+    }
+    nav {
+      width: 220px;
+      background-color: #003366;
+      color: white;
+      padding: 2rem 1rem;
+      position: fixed;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
+    .logo-container {
+      background-color: white;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+    }
+    .logo-container img {
+      max-width: 160px;
+      display: block;
+      margin: 0 auto;
+    }
+    nav h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+      border-bottom: 2px solid white;
+      padding-bottom: 0.5rem;
+      width: 100%;
+      text-align: left;
+      color: white;
+    }
+    nav a {
+      display: block;
+      width: 100%;
+      padding: 10px 0;
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      border-left: 4px solid transparent;
+      transition: all 0.2s ease;
+    }
+    nav a:hover {
+      background-color: #004080;
+      border-left: 4px solid #ffffff;
+      padding-left: 0.5rem;
+    }
+    main {
+      margin-left: 220px;
+      padding: 2rem;
+      width: calc(100% - 220px);
+      display: flex;
+      justify-content: center;
+    }
+    .content {
+      max-width: 1000px;
+      width: 100%;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #004080;
+    }
+    header p {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+    section {
+      margin-bottom: 3rem;
+    }
+    h2 {
+      color: #004080;
+      margin-bottom: 1rem;
+    }
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      margin-bottom: 2rem;
+    }
+    .announcement {
+      background-color: #e6f0ff;
+      border-left: 6px solid #004080;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .link-button {
+      display: inline-block;
+      padding: 12px 20px;
+      background-color: #004080;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    table th, table td {
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+    table th {
+      background-color: #004080;
+      color: white;
+    }
+    .email-button {
+      padding: 6px 12px;
+      background-color: #004080;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .email-button:hover {
+      background-color: #003366;
+    }
+    .faq-item {
+      border-bottom: 1px solid #ccc;
+      padding: 1rem 0;
+    }
+    .faq-question {
+      font-weight: bold;
+      color: #004080;
+      cursor: pointer;
+      position: relative;
+      padding-right: 20px;
+    }
+    .faq-question::after {
+      content: '+';
+      position: absolute;
+      right: 0;
+      font-size: 1.2rem;
+      color: #004080;
+      transition: transform 0.3s ease;
+    }
+    .faq-item.active .faq-question::after {
+      content: '−';
+    }
+    .faq-answer {
+      display: none;
+      margin-top: 0.5rem;
+      padding-left: 1rem;
+      color: #333;
+      line-height: 1.5;
+    }
+    .faq-item.active .faq-answer {
+      display: block;
+      animation: fadeIn 0.3s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    footer {
+      background-color: #eee;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      nav {
+        position: relative;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 1rem;
+        box-shadow: none;
+      }
+      nav h2 { display: none; }
+      nav a {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+        border-left: none;
+        border-bottom: 2px solid white;
+      }
+      main {
+        margin-left: 0;
+        width: 100%;
+        padding: 1rem;
+      }
+      .content { max-width: 100%; }
+      iframe { height: 400px; }
+      header h1 { font-size: 1.5rem; }
+      header p { font-size: 0.9rem; }
+      .link-button {
+        font-size: 0.9rem;
+        padding: 10px 16px;
+      }
+      table th, table td {
+        font-size: 0.85rem;
+        padding: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo-container">
+      <img src="https://www.tafeonline.org/assets/site/logo.png" alt="TAFE Logo">
+    </div>
+    <h2>Navigation</h2>
+    <a href="#announcements">Announcements</a>
+    <a href="#calendar">Calendar</a>
+    <a href="#resources">Resources</a>
+    <a href="#officers">Officers</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+
+  <main>
+    <div class="content">
+      <header>
+        <h1 id="dashboard-title">TAFE Member Dashboard</h1>
+        <p>Stay connected with events, announcements, and resources</p>
+      </header>
+
+      <section id="announcements">
+        <h2>Announcements</h2>
+       <!--
+        <div class="announcement">
+         *Note Here*
+        </div>
+        --> 
+        <div class="announcement">
+         Sign up for the Bake sale by October 23!
+        </div>
+      </section>
+
+      <section id="calendar">
+        <h2>Upcoming Events</h2>
+        <iframe src="https://calendar.google.com/calendar/embed?src=c_5d30076f47ac4ace984a454dd54118116758cca367801199eb74ab9d1425e031%40group.calendar.google.com&ctz=America%2FChicago"></iframe>
+      </section>
+
+      <section id="resources">
+        <h2>Resources</h2>
+        <a class="link-button" href="https://www.tafeonline.org/" target="_blank">Visit TAFE Website</a>
+        <a class="link-button" href="https://docs.google.com/forms/d/e/1FAIpQLSdqIAhd_QAMl153LXtNjVL2g__STmqlG0TwotDBUykETRlzfg/viewform?usp=header" target="_blank">Bake Sale Sign-Up Form</a>
+      <a class="link-button" href="https://docs.google.com/forms/d/e/1FAIpQLSd756_UiO-Xmy5Drb52gan10lI2z30EmAL_b2ZqVvemvAkWAg/viewform?usp=header" target="_blank">Submit a Suggestion</a>
+    </section>
+
+      <section id="officers">
+        <h2>Officers & Committee Leaders</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>Name</th>
+                            <th>Contact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Coach</td><td>Cassi Korzekwa</td><td><a href="mailto:ckorzekwa@pothisd.us" target="_blank"><span class="email-button">Email</span></a></td></tr>
+            <tr><td>President</td><td>Taylor Whitaker</td><td><a href="mailto:taylor.whitaker@pothisd.us" target="_blank"><span class="email-button">Email</span></a></td></tr>
+            <tr><td>Vice President</td><td>Delaney Pape</td><td><a href="mailto:delaney.pape@pothisd.us" target="_blank"><span class="email-button">Email</span></a></td></tr>
+            <tr><td>Secretary</td><td>Kendall Gaber</td><td><a href="mailto:kendall.gaber@pothisd.us" target="_blank"><span class="email-button">Email</span></a></td></tr>
+            <tr><td>Treasurer</td><td>Derrick Richard</td><td><a href="mailto:derrick.richard@pothisd.us" target="_blank"><span class="email-button">Email</span></a></td></tr>
+            <tr><td>Fundraising Committee Leader</td><td>Grace Holloway</td><td><a href="mailto:grace.holloway@pothisd.us" target="_blank"><span class="email-button">Email</span></a></td></tr>
+            <tr><td>Winter Formal Committee Leader</td><td>Taylon Felux</td><td><a href="mailto:taylon.felux@pothisd.us" target="_blank"><span class="email-button">Email</span></a></td></tr>
+            <tr><td>Social Media Officer</td><td>Delaney Pape</td><td><a href="mailto:delaney.pape@pothisd.us" target="_blank"><span class="email-button">Email</span></a></td></tr>
+            <tr><td>Social Media Officer</td><td>Kendall Gaber</td><td><a href="mailto:kendall.gaber@pothisd.us" target="_blank"><span class="email-button">Email</span></a></td></tr>
+            <tr><td>TRAFLE Committee Leader</td><td>Isabella Perez</td><td><a href="mailto:isabella.perez@pothisd.us" target="_blank"><span class="email-button">Email</span></a></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="faq">
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq-item">
+          <div class="faq-question">Who manages the TAFE social media?</div>
+          <div class="faq-answer">
+            Our social media platforms are managed by Delaney Pape and Kendall Gaber, who serve as our Social Media Officers. They create engaging posts, share updates, and promote events to keep members informed and showcase our chapter’s achievements.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">Who do I contact to see the finance spreadsheets?</div>
+          <div class="faq-answer">
+            Derrick Richard, our Treasurer, oversees all financial documentation including budgets, fundraising reports, and reimbursement records. If you need access or have questions, Derrick is the designated point of contact.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">What are membership fees used for?</div>
+          <div class="faq-answer">
+            Membership fees support club operations. They help cover transportation to events, food for meetings, and supplies for projects, decorations, and promotional materials — all of which enhance the member experience.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">Who manages this website?</div>
+          <div class="faq-answer">
+            This dashboard is designed and maintained by Derrick Richard, our Treasurer. With advanced web development skills, he ensures the site remains secure, functional, and up-to-date for all members.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">Can I suggest new ideas or events?</div>
+          <div class="faq-answer">
+            Absolutely! We welcome member input. Share your ideas with any officer or submit them through our upcoming suggestion form. Many of our best events come from creative member contributions.
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        &copy; © 2025 TAFE Club | Built By Derrick Richard
+      </footer>
+    </div>
+  </main>
+
+  <script>
+  // Scroll to the dashboard title on page load
+  window.addEventListener('load', function () {
+    const title = document.getElementById('dashboard-title');
+    if (title) {
+      title.scrollIntoView({ behavior: 'auto', block: 'start' });
+    }
+  });
+
+  // FAQ toggle functionality
+  document.querySelectorAll('.faq-question').forEach(question => {
+    question.addEventListener('click', () => {
+      const item = question.parentElement;
+      item.classList.toggle('active');
+    });
+  });
+</script>
+</body>
+</html>
