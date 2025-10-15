@@ -366,6 +366,15 @@
       item.classList.toggle('active');
     });
   });
+
+  // Ensure external links open in a new tab with security attributes
+  document.querySelectorAll('a[href]').forEach(link => {
+    if (link.hostname !== window.location.hostname) {
+      link.setAttribute('target', '_blank');
+      link.setAttribute('rel', 'noopener noreferrer');
+    }
+  });
 </script>
+
 </body>
 </html>
